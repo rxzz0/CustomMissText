@@ -66,7 +66,7 @@ _spawner->dyn__fontSize() = TextFontSize;
 _spawner->dyn__color() = TextColor;
 
         if (Enabled == true) {
-	  	  _spawner->SpawnText(vector, UnityEngine::Quaternion::get_identity(), UnityEngine::Quaternion::get_identity(), Text);
+	  	  _spawner->SpawnText(vector, worldRotation, inverseWorldRotation, Text);
         }
     }
 };  
