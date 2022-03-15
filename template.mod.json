@@ -1,0 +1,12 @@
+{
+    "_QPVersion": "0.1.1",
+    "name": "${mod_name}",
+    "id": "${mod_id}",
+    "author": "rxzz0#6982",
+    "version": "${version}",
+    "packageId": "com.beatgames.beatsaber",
+    "packageVersion": "1.17.1",
+    "description": "customize your miss text v${version}",
+    "modFiles": [],
+    "libraryFiles": []
+}
