@@ -31,10 +31,12 @@ MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed,
                 void, GlobalNamespace::MissedNoteEffectSpawner* self, 
                 GlobalNamespace::NoteController* noteController)
 {
+  if (_spawner == nullptr) 
+  {
      _spawner = UnityEngine::GameObject::New_ctor("CustomMissTextSpawner")->AddComponent<GlobalNamespace::FlyingTextSpawner*>();
 
         auto installers = UnityEngine::Object::FindObjectsOfType<Zenject::MonoInstallerBase*>();
-          for (auto& installer : installers) 
+          for (auto const& installer : installers) 
           {
             auto container = installer->get_Container();
               if (container != nullptr && _spawner != nullptr && container->HasBinding<GlobalNamespace::FlyingTextEffect::Pool*>()) 
@@ -43,30 +45,27 @@ MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed,
                 break;
               }
           }
-      bool Enabled = getModConfig().Enabled.GetValue();
-      UnityEngine::Color TextColor = getModConfig().MissTextColor.GetValue();
-      float TextFontSize = getModConfig().FontSize.GetValue();
-      std::string Text = getModConfig().MissText.GetValue();
-      GlobalNamespace::NoteData* noteData = noteController->get_noteData();
-      if (noteData->get_colorType()._get_ColorA() != GlobalNamespace::ColorType::None && noteData->get_colorType()._get_ColorB() != GlobalNamespace::ColorType::None) 
+  }   
+
+      if (getModConfig().Enabled.GetValue()) 
       {
-      
-        if (noteController->get_hidden()) return;
-        if (noteData->get_time() + 0.5f < GlobalNamespace::AudioTimeSyncController().get_songTime()) return;
-        if (noteData->get_colorType() == GlobalNamespace::ColorType::None) return;
+        GlobalNamespace::NoteData* noteData = noteController->get_noteData();
+        if (noteData->get_colorType()._get_ColorA() != GlobalNamespace::ColorType::None && noteData->get_colorType()._get_ColorB() != GlobalNamespace::ColorType::None) 
+        {
+        
+          if (noteController->get_hidden()) return;
+          if (noteData->get_time() + 0.5f < GlobalNamespace::AudioTimeSyncController().get_songTime()) return;
+          if (noteData->get_colorType() == GlobalNamespace::ColorType::None) return;
+          
+               
+          UnityEngine::Vector3 vector = noteController->get_noteTransform()->get_position();
+          vector = noteController->get_worldRotation() * vector;
+          vector = noteController->get_inverseWorldRotation() * vector;
+          vector.z = _spawner->dyn__targetZPos();
 
-        UnityEngine::Vector3 vector = noteController->get_noteTransform()->get_position();
-        UnityEngine::Quaternion worldRotation = noteController->get_worldRotation();
-        UnityEngine::Quaternion inverseWorldRotation = noteController->get_inverseWorldRotation();
-        vector = worldRotation * vector;
-        vector = inverseWorldRotation * vector;
-        vector.z = self->dyn__spawnPosZ();
-
-_spawner->dyn__fontSize() = TextFontSize;
-_spawner->dyn__color() = TextColor;
-
-        if (Enabled == true) {
-	  	  _spawner->SpawnText(vector, worldRotation, inverseWorldRotation, Text);
+          _spawner->dyn__fontSize() = getModConfig().FontSize.GetValue();
+          _spawner->dyn__color() = getModConfig().MissTextColor.GetValue();
+	        _spawner->SpawnText(vector, noteController->get_worldRotation(), noteController->get_inverseWorldRotation(), getModConfig().MissText.GetValue());
         }
     }
 };  

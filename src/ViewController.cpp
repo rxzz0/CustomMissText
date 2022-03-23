@@ -16,10 +16,10 @@ DEFINE_TYPE(CustomMissText, ViewController);
 void CustomMissText::ViewController::DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) 
 {   
     if (firstActivation) {
-            layout = QuestUI::BeatSaberUI::CreateVerticalLayoutGroup(get_transform());
-            horizontal = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(layout->get_transform());
-            get_gameObject()->AddComponent<HMUI::Touchable*>();
-            UnityEngine::GameObject* container = QuestUI::BeatSaberUI::CreateScrollableSettingsContainer(get_transform());
+            layout = CreateVerticalLayoutGroup(get_transform());
+            horizontal = CreateHorizontalLayoutGroup(layout->get_transform());
+            get_gameObject()->AddComponent<Touchable*>();
+            GameObject* container = CreateScrollableSettingsContainer(get_transform());
             button = CreateUIButton(horizontal->get_transform(), "made by rxzz0#6982");  
 
 
