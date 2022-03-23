@@ -1,8 +1,8 @@
+#include <string>
 #include "main.hpp"
 #include "Hooks.hpp"
-
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
-
+#include "UnityEngine/Color.hpp"
 #include "config/config.hpp"
 #include "ViewController.hpp"
 #include "questui/shared/QuestUI.hpp"
@@ -23,7 +23,6 @@ Logger& getLogger() {
     static Logger* logger = new Logger(modInfo);
     return *logger;
 }
-
 
 // Called at the early stages of game loading
 extern "C" void setup(ModInfo& info) {
