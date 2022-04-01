@@ -1,10 +1,11 @@
-#include <string>
 #include "main.hpp"
 #include "Hooks.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "UnityEngine/Color.hpp"
 #include "config/config.hpp"
-#include "ViewController.hpp"
+#include "UI/ViewControllers/TextViewController.hpp"
+#include "UI/ViewControllers/ExtrasViewController.hpp"
+#include "UI/CustomMissTextFlowCoordinator.hpp"
 #include "questui/shared/QuestUI.hpp"
 
 static ModInfo modInfo; // Stores the ID and version of our mod, and is sent to the modloader upon startup
@@ -45,7 +46,7 @@ extern "C" void load() {
     InstallHooks();
     QuestUI::Init();
     custom_types::Register::AutoRegister();
-    QuestUI::Register::RegisterMainMenuModSettingsViewController<CustomMissText::ViewController*>(modInfo);
+    QuestUI::Register::RegisterMainMenuModSettingsFlowCoordinator<CustomMissText::UI::FlowCoordinators::CustomMissTextFlowCoordinator*>(modInfo);
     getLogger().info("Installed all hooks!");
     }
     
