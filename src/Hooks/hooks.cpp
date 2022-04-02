@@ -26,14 +26,20 @@
 
 GlobalNamespace::FlyingTextSpawner* _spawner;
 
-#define Enabled getModConfig().Enabled.GetValue()
+#define config getModConfig()
+#define Enabled config.Enabled.GetValue()
+
+static float Mathf_Sign(float f)
+{
+  return (f >= 0.0f) ? 1.0f : -1.0f;
+}
 
 MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed, 
                 &GlobalNamespace::MissedNoteEffectSpawner::HandleNoteWasMissed, 
                 void, GlobalNamespace::MissedNoteEffectSpawner* self, 
                 GlobalNamespace::NoteController* noteController)
 {
-     _spawner = UnityEngine::GameObject::New_ctor("CustomMissTextSpawner")->AddComponent<GlobalNamespace::FlyingTextSpawner*>();
+          _spawner = UnityEngine::GameObject::New_ctor("CustomMissTextSpawner")->AddComponent<GlobalNamespace::FlyingTextSpawner*>();
 
           auto installers = UnityEngine::Object::FindObjectsOfType<Zenject::MonoInstallerBase*>();
           for (auto& installer : installers) 
@@ -49,22 +55,20 @@ MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed,
     if (Enabled && _spawner != nullptr) 
     {
 
-          _spawner->dyn__fontSize() = getModConfig().FontSize.GetValue();
-          _spawner->dyn__color() = getModConfig().MissTextColor.GetValue();
-          _spawner->dyn__shake() = getModConfig().Shake.GetValue();   
+          _spawner->dyn__targetZPos() = 12.0f;
+          _spawner->dyn__fontSize() = config.FontSize.GetValue();
+          _spawner->dyn__color() = config.MissTextColor.GetValue();
+          _spawner->dyn__shake() = config.Shake.GetValue();   
 
-
-          _spawner->dyn__targetZPos() = 15;
-          _spawner->dyn__xSpread() = 6.8;
-
-        GlobalNamespace::NoteData* noteData = noteController->get_noteData();
+          GlobalNamespace::NoteData* noteData = noteController->get_noteData();
           if (noteData->get_colorType() == GlobalNamespace::ColorType::ColorA || noteData->get_colorType() == GlobalNamespace::ColorType::ColorB)
           {
               UnityEngine::Vector3 pos = noteController->get_noteTransform()->get_position();
               UnityEngine::Quaternion worldRotation = noteController->get_worldRotation();
               pos = noteController->get_inverseWorldRotation() * pos;
               pos = worldRotation * pos;
-              _spawner->SpawnText(pos, noteController->get_worldRotation(), noteController->get_inverseWorldRotation(), getModConfig().MissText.GetValue());
+              pos = Mathf_Sign(pos.x = 2);
+              _spawner->SpawnText(pos, noteController->get_worldRotation(), noteController->get_inverseWorldRotation(), config.MissText.GetValue());
           }
     }
 };  

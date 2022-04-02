@@ -22,17 +22,17 @@
     },
     {
       "id": "custom-types",
-      "versionRange": "^0.15.8",
+      "versionRange": "^0.15.9",
       "additionalData": {}
     },
     {
       "id": "questui",
-      "versionRange": "^0.13.4",
+      "versionRange": "^0.13.5",
       "additionalData": {}
     },
     {
       "id": "codegen",
-      "versionRange": "^0.21.0",
+      "versionRange": "^0.22.0",
       "additionalData": {}
     },
     {
@@ -43,6 +43,11 @@
     {
       "id": "modloader",
       "versionRange": "*",
+      "additionalData": {}
+    },
+    {
+      "id": "questui_components",
+      "versionRange": "^2.5.0",
       "additionalData": {}
     }
   ],

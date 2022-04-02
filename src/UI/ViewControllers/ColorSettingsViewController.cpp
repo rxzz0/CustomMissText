@@ -17,10 +17,10 @@ void CustomMissText::UI::ViewControllers::ColorSettingsViewController::DidActiva
             UnityEngine::UI::VerticalLayoutGroup* Vertical = QuestUI::BeatSaberUI::CreateVerticalLayoutGroup(get_transform());
             UnityEngine::UI::HorizontalLayoutGroup* Horizontal = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(Vertical->get_transform());
 
-            auto ColorPicker = AddConfigValueColorPickerModal(Vertical->get_transform(), getModConfig().MissTextColor);
+        auto ColorPickerModal = AddConfigValueColorPickerModal(Vertical->get_transform(), getModConfig().MissTextColor);
 
             QuestUI::BeatSaberUI::CreateUIButton(get_transform(), "miss-color", [=] {
-                ColorPicker->Show();
+                ColorPickerModal->Show();
             });
 
     }

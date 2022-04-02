@@ -26,7 +26,7 @@ void CustomMissText::UI::ViewControllers::TextSettingsViewController::DidActivat
             UnityEngine::GameObject* container = QuestUI::BeatSaberUI::CreateScrollableSettingsContainer(get_transform());
 
             auto EnabledButton = AddConfigValueModifierButton(container->get_transform(), getModConfig().Enabled);
-            EnabledButton->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::MidlineLeft);
+            EnabledButton->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::Center);
             EnabledButton->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(5.0);
 
 

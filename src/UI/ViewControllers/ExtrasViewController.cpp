@@ -21,11 +21,10 @@ void CustomMissText::UI::ViewControllers::ExtraSettingsViewController::DidActiva
         UnityEngine::UI::HorizontalLayoutGroup* HorizontalLayout = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(VerticalLayout->get_transform());
 
         AddConfigValueIncrementFloat(VerticalLayout->get_transform(), getModConfig().FontSize, 1, 0.1, 0.1, 10);
-        auto Shake = AddConfigValueModifierButton(HorizontalLayout->get_transform(), getModConfig().Shake);
-        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::MidlineLeft);
-        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(5.0);
-        
 
-        AddConfigValueColorPickerModal(VerticalLayout->get_transform(), getModConfig().MissTextColor)->Show();
+        HorizontalLayout->set_childAlignment(UnityEngine::TextAnchor::MiddleCenter);    
+        auto Shake = AddConfigValueModifierButton(HorizontalLayout->get_transform(), getModConfig().Shake);
+        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::Center);
+        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(5.0);
     }      
 }
