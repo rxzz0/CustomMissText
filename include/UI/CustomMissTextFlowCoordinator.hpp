@@ -5,7 +5,6 @@
 
 #include "UI/ViewControllers/TextViewController.hpp"
 #include "UI/ViewControllers/ExtrasViewController.hpp"
-#include "UI/ViewControllers/ColorSettingsViewController.hpp"
 
 #include "custom-types/shared/macros.hpp"
 
@@ -14,7 +13,6 @@
 DECLARE_CLASS_CODEGEN(CustomMissText::UI::FlowCoordinators, CustomMissTextFlowCoordinator, HMUI::FlowCoordinator,
                       DECLARE_INSTANCE_FIELD(CustomMissText::UI::ViewControllers::TextSettingsViewController*, TextSettingsViewController);
                       DECLARE_INSTANCE_FIELD(CustomMissText::UI::ViewControllers::ExtraSettingsViewController*, ExtraSettingsViewController);
-                      DECLARE_INSTANCE_FIELD(CustomMissText::UI::ViewControllers::ColorSettingsViewController*, ColorSettingsViewController);
 
                       DECLARE_INSTANCE_METHOD(void, Awake);
 

@@ -20,9 +20,6 @@ void CustomMissText::UI::FlowCoordinators::CustomMissTextFlowCoordinator::Awake(
     if (!ExtraSettingsViewController) {
         ExtraSettingsViewController = QuestUI::BeatSaberUI::CreateViewController<CustomMissText::UI::ViewControllers::ExtraSettingsViewController*>();
     }
-    if (!ColorSettingsViewController) {
-        ColorSettingsViewController = QuestUI::BeatSaberUI::CreateViewController<CustomMissText::UI::ViewControllers::ColorSettingsViewController*>();
-    }
 }
 
 void CustomMissText::UI::FlowCoordinators::CustomMissTextFlowCoordinator::DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemEnabling) {
@@ -30,7 +27,7 @@ void CustomMissText::UI::FlowCoordinators::CustomMissTextFlowCoordinator::DidAct
 
     SetTitle("Custom Miss-Text Settings", HMUI::ViewController::AnimationType::In);
     showBackButton = true;
-    ProvideInitialViewControllers(TextSettingsViewController, ExtraSettingsViewController, ColorSettingsViewController, nullptr, nullptr);
+    ProvideInitialViewControllers(TextSettingsViewController, ExtraSettingsViewController, nullptr, nullptr, nullptr);
 }
 
 void CustomMissText::UI::FlowCoordinators::CustomMissTextFlowCoordinator::BackButtonWasPressed(HMUI::ViewController* topViewController) {

@@ -5,8 +5,8 @@
 
 #include "config/config.hpp"
 
-#include "UI/Custom/ConfigValueColorPickerModal.hpp"
 #include "UI/Custom/ConfigValueModifiersButton.hpp"
+#include "UI/Custom/ConfigValueColorPickerModal.hpp"
 
 #include "UnityEngine/TextAnchor.hpp"
 
@@ -15,16 +15,17 @@ using namespace CustomMissText::UI;
 DEFINE_TYPE(CustomMissText::UI::ViewControllers, ExtraSettingsViewController);
 
 void CustomMissText::UI::ViewControllers::ExtraSettingsViewController::DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) 
-{   if (firstActivation) 
-    {
-        UnityEngine::UI::VerticalLayoutGroup* VerticalLayout = QuestUI::BeatSaberUI::CreateVerticalLayoutGroup(get_transform());
-        UnityEngine::UI::HorizontalLayoutGroup* HorizontalLayout = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(VerticalLayout->get_transform());
+{   if (!firstActivation) return;
+        QuestUI::BeatSaberUI::CreateText(get_transform(), "Extra settings", true, UnityEngine::Vector2(7, 47.5))->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(9.0);
 
-        AddConfigValueIncrementFloat(VerticalLayout->get_transform(), getModConfig().FontSize, 1, 0.1, 0.1, 10);
+        UnityEngine::UI::HorizontalLayoutGroup* layout = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(get_transform());
 
-        HorizontalLayout->set_childAlignment(UnityEngine::TextAnchor::MiddleCenter);    
-        auto Shake = AddConfigValueModifierButton(HorizontalLayout->get_transform(), getModConfig().Shake);
-        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::Center);
-        Shake->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(5.0);
-    }      
+        auto ColorPickerModal = AddConfigValueColorPickerModal(layout->get_transform(), getModConfig().MissTextColor);
+        auto ColorButton = QuestUI::BeatSaberUI::CreateUIButton(get_transform(), "Change Miss-Color", UnityEngine::Vector2(0, 10), UnityEngine::Vector2(30, 10), [=] {
+        ColorPickerModal->Show();
+        });
+        
+
+        AddConfigValueModifierButton(get_transform(), getModConfig().Shake, UnityEngine::Vector2(60, -15));
+        AddConfigValueIncrementFloat(layout->get_transform(), getModConfig().FontSize, 1, 0.1, 0.1, 10.0);
 }

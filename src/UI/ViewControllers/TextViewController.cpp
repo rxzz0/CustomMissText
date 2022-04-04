@@ -19,18 +19,13 @@ using namespace CustomMissText::UI;
 DEFINE_TYPE(CustomMissText::UI::ViewControllers, TextSettingsViewController);
 
 void CustomMissText::UI::ViewControllers::TextSettingsViewController::DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) 
-{   if (firstActivation) 
-    {
+{   if (!firstActivation) return;
             UnityEngine::UI::VerticalLayoutGroup* Vertical = QuestUI::BeatSaberUI::CreateVerticalLayoutGroup(get_transform());
             UnityEngine::UI::HorizontalLayoutGroup* Horizontal = QuestUI::BeatSaberUI::CreateHorizontalLayoutGroup(Vertical->get_transform());
             UnityEngine::GameObject* container = QuestUI::BeatSaberUI::CreateScrollableSettingsContainer(get_transform());
 
-            auto EnabledButton = AddConfigValueModifierButton(container->get_transform(), getModConfig().Enabled);
-            EnabledButton->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_alignment(TMPro::TextAlignmentOptions::Center);
-            EnabledButton->get_gameObject()->GetComponentInChildren<TMPro::TextMeshProUGUI*>()->set_fontSize(5.0);
-
+            AddConfigValueToggle(container->get_transform(), getModConfig().Enabled);
 
             AddConfigValueStringSetting(container->get_transform(), getModConfig().MissText);
             QuestUI::BeatSaberUI::CreateUIButton(Horizontal->get_transform(), "made by rxzz0#6982");
-    }
 }

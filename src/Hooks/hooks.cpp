@@ -29,7 +29,7 @@ GlobalNamespace::FlyingTextSpawner* _spawner;
 #define config getModConfig()
 #define Enabled config.Enabled.GetValue()
 
-static float Mathf_Sign(float f)
+static float Sign(float f)
 {
   return (f >= 0.0f) ? 1.0f : -1.0f;
 }
@@ -54,8 +54,9 @@ MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed,
 
     if (Enabled && _spawner != nullptr) 
     {
-
           _spawner->dyn__targetZPos() = 12.0f;
+          _spawner->dyn__xSpread() = 1.8;
+
           _spawner->dyn__fontSize() = config.FontSize.GetValue();
           _spawner->dyn__color() = config.MissTextColor.GetValue();
           _spawner->dyn__shake() = config.Shake.GetValue();   
@@ -67,7 +68,9 @@ MAKE_HOOK_MATCH(MissedNoteEffectSpawner_HandleNoteWasMissed,
               UnityEngine::Quaternion worldRotation = noteController->get_worldRotation();
               pos = noteController->get_inverseWorldRotation() * pos;
               pos = worldRotation * pos;
-              pos = Mathf_Sign(pos.x = 2);
+              pos.y = noteController->get_transform()->get_position().y;
+              float xPos = noteController->get_transform()->get_position().x;
+              pos = Sign(xPos * _spawner->dyn__xSpread());
               _spawner->SpawnText(pos, noteController->get_worldRotation(), noteController->get_inverseWorldRotation(), config.MissText.GetValue());
           }
     }

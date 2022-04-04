@@ -8,10 +8,11 @@
 #include "GlobalNamespace/ColorChangeUIEventType.hpp"
 
 namespace CustomMissText::UI {
-
-    //I had to, sorry to whoever has to look at this
+    
+        //I had to, sorry to whoever has to look at this
     inline ::QuestUI::ModalColorPicker* AddConfigValueColorPickerModal(UnityEngine::Transform* parent, ConfigUtils::ConfigValue<::UnityEngine::Color>& configValue) {
-    auto object = ::QuestUI::BeatSaberUI::CreateColorPickerModal(parent, configValue.GetName(), configValue.GetValue(), nullptr, nullptr, [&configValue](::UnityEngine::Color value) {
+    auto object = ::QuestUI::BeatSaberUI::CreateColorPickerModal(parent, configValue.GetName(), configValue.GetValue(), nullptr, nullptr, 
+    [&configValue](::UnityEngine::Color value) {
             configValue.SetValue(value);
         }
     );

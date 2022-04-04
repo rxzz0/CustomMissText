@@ -7,4 +7,4 @@ if (-not ($PSVersionTable.PSEdition -eq "Core")) {
 }
 
 & $buildScript NDK_PROJECT_PATH=$PSScriptRoot APP_BUILD_SCRIPT=$PSScriptRoot/Android.mk NDK_APPLICATION_MK=$PSScriptRoot/Application.mk
-Compress-Archive -Path "./build/libcustommisstext.so", "./mod.json", "./extern/libs/libbeatsaber-hook_3_6_8.so" -DestinationPath "./CustomMissText.qmod" -Force
+Compress-Archive -Path "./build/libcustommisstext.so", "./mod.json", "./Cover.png", "./extern/libs/libbeatsaber-hook_3_7_4.so" -DestinationPath "./CustomMissText.qmod" -Force
